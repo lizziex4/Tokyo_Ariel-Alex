@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#20384a">
+  <meta name="description" content="2027 東京五天四夜，適合媽媽手機編輯、保留行程修改紀錄與匯出備份的旅遊手帳。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <title>Tokyo Journal | 東京五天四夜</title>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="網站導覽">
+      <div class="brand"><span class="brand-symbol">東</span><div><strong>TOKYO JOURNAL</strong><small>冬日東京・2027</small></div></div>
+      <p class="sidebar-label">OUR LITTLE JOURNEY</p>
+      <nav class="sidebar-nav" aria-label="主要導覽">
+        <button class="nav-link active" data-view="overview"><span class="nav-glyph">⌂</span> 旅程首頁</button>
+        <button class="nav-link" data-view="schedule"><span class="nav-glyph">▦</span> 每日行程</button>
+        <button class="nav-link" data-view="checklist"><span class="nav-glyph">✓</span> 旅行待辦</button>
+        <button class="nav-link" data-view="history"><span class="nav-glyph">↺</span> 修改紀錄</button>
+        <button class="nav-link" data-view="settings"><span class="nav-glyph">⚙</span> 分享與備份</button>
+      </nav>
+      <div class="side-bottom">
+        <div class="side-postcard"><span class="postcard-number">05</span><span>DAYS IN TOKYO</span><p>把想去的地方，<br>都寫進我們的旅行裡。</p></div>
+        <div class="sidebar-footer">MADE FOR FAMILY · WITH LOVE</div>
+      </div>
+    </aside>
+
+    <div class="main-shell">
+      <header class="topbar"><div class="top-kicker">TRAVEL NOTEBOOK <span class="top-separator">/</span> JAPAN</div><div class="top-actions"><span id="sync-status" class="sync-status" role="status"><span class="status-dot"></span> 本機儲存</span><button class="top-share" type="button" id="top-share" aria-label="分享完整行程備份檔">傳送行程檔 <span aria-hidden="true">↗</span></button></div></header>
+      <main class="main-content">
+        <section class="hero" aria-label="旅行封面">
+          <div class="hero-copy"><p class="eyebrow">WINTER ESCAPE · TOKYO 2027</p><h1>東京，<br><em>和妳一起慢慢走。</em></h1><p class="hero-desc">五天四夜的優雅散步 · 把喜歡的時光好好收藏</p><div class="hero-bottom"><span>07 — 11 JANUARY 2027</span><span class="hero-divider"></span><span>5 DAYS / 4 NIGHTS</span></div></div>
+          <img src="./assets/tokyo-hero.svg" alt="東京鐵塔、城市天際線與冬季落日插畫" class="hero-illustration">
+          <span class="hero-stamp">TOKYO<br>2027</span>
+        </section>
+        <div class="page-content">
+          <div id="overview-view" class="view active" aria-labelledby="overview-heading">
+            <div class="section-heading"><div><p class="eyebrow muted">THE JOURNEY AT A GLANCE</p><h2 id="overview-heading">旅行的小小預告</h2></div><button class="text-action" data-view="schedule">查看全部行程 <span aria-hidden="true">→</span></button></div>
+            <div class="overview-stats" id="overview-stats"></div>
+            <div class="section-heading mini-heading"><div><p class="eyebrow muted">FIVE BEAUTIFUL DAYS</p><h2>五天的東京故事</h2></div></div>
+            <div id="overview-days" class="overview-days"></div>
+            <div class="two-column">
+              <section class="panel"><div class="panel-heading"><span class="panel-eyebrow">DON'T FORGET</span><h3>重要預約</h3></div><div id="reservations"></div></section>
+              <section class="panel"><div class="panel-heading"><span class="panel-eyebrow">LITTLE REMINDERS</span><h3>出發前確認</h3></div><div id="notice-list"></div></section>
+            </div>
+          </div>
+
+          <div id="schedule-view" class="view" aria-labelledby="schedule-heading">
+            <div class="section-heading"><div><p class="eyebrow muted">THE DAILY ITINERARY</p><h2 id="schedule-heading">每天的旅行日記</h2></div><button class="button primary add-event" type="button" data-add>＋ 新增行程</button></div>
+            <div id="day-tabs" class="day-tabs" role="tablist" aria-label="選擇旅遊日期"></div>
+            <div class="day-head" id="day-head"></div>
+            <div class="timeline" id="timeline"></div>
+            <p class="schedule-footnote">點選「編輯」就能改時間、地點與備註。地圖按鈕會開啟 Google Maps。</p>
+          </div>
+
+          <div id="checklist-view" class="view" aria-labelledby="checklist-heading">
+            <div class="section-heading"><div><p class="eyebrow muted">BEFORE WE GO</p><h2 id="checklist-heading">打包幸福的小清單</h2></div></div>
+            <div class="two-column checklist-columns"><section class="panel checklist-panel"><div class="panel-heading"><span class="panel-eyebrow">PACK & PREPARE</span><h3>出發待辦 <span id="check-progress" class="count-pill"></span></h3></div><div id="check-items"></div><form id="add-task-form" class="inline-form"><input name="task" maxlength="120" placeholder="新增想記得的事…" aria-label="新增待辦事項" required><button class="button primary" type="submit">新增</button></form></section>
+              <section class="panel"><div class="panel-heading"><span class="panel-eyebrow">A NOTE FOR US</span><h3>我們的旅行備忘錄</h3></div><label class="field-hint" for="general-note">想買的東西、注意事項或其他小提醒，都可以記在這裡。</label><textarea id="general-note" class="general-note" rows="9" maxlength="5000"></textarea><button class="button primary" type="button" id="save-note">儲存備忘錄</button></section></div>
+          </div>
+
+          <div id="history-view" class="view" aria-labelledby="history-heading"><div class="section-heading"><div><p class="eyebrow muted">OUR SHARED MEMORIES</p><h2 id="history-heading">每一次修改，都留得住</h2></div></div><div class="history-intro">無論是新增景點、調整時間，或是改了餐廳，都會記在這裡。需要時還能還原先前的行程版本。</div><div id="history-list" class="history-list"></div></div>
+
+          <div id="settings-view" class="view" aria-labelledby="settings-heading"><div class="section-heading"><div><p class="eyebrow muted">SAVE & SHARE</p><h2 id="settings-heading">讓這本旅行手帳一直在</h2></div></div>
+            <div class="settings-grid">
+              <section class="panel">
+                <div class="panel-heading"><span class="panel-eyebrow">SEND TO FAMILY</span><h3>把行程傳給家人</h3></div>
+                <p class="settings-prose">媽媽編輯好之後，點下方按鈕，就能用手機分享功能透過 LINE 傳送完整行程檔。你收到 JSON 後可以匯入網站，保留所有時間、備註、待辦與修改版本。</p>
+                <div class="setting-actions stacked">
+                  <button id="share-backup-button" class="button primary" type="button">傳送完整行程檔（推薦）</button>
+                  <button id="share-text-button" class="button secondary" type="button">分享文字版行程</button>
+                </div>
+                <p class="small-note">分享檔案會將當下資料打包，不會自動同步。若手機不支援直接分享檔案，網站會改為下載備份，再手動從 LINE 傳送檔案。</p>
+              </section>
+              <section class="panel">
+                <div class="panel-heading"><span class="panel-eyebrow">SAFE ON THIS DEVICE</span><h3>本機儲存與備份</h3></div>
+                <p id="sync-explanation" class="settings-prose">行程修改後自動儲存在這台裝置。</p>
+                <div id="user-summary" class="user-summary"></div>
+                <div class="setting-actions stacked">
+                  <button id="export-button" class="button secondary" type="button">下載完整備份（JSON）</button>
+                  <label class="button secondary file-button">匯入行程備份<input id="import-file" type="file" accept=".json,application/json" hidden></label>
+                  <button id="print-button" class="button secondary" type="button">列印全部五天／存成 PDF</button>
+                  <button id="share-button" class="button secondary" type="button">複製網站網址（不含修改）</button>
+                </div>
+              </section>
+            </div>
+            <div class="help-panel"><strong>給媽媽的小提示</strong><p>① 到「行程」選日期，點「編輯行程」修改內容並按儲存。② 修改都會留在這支手機。③ 全部改完，進「分享與備份」點「傳送完整行程檔」，在分享選單選擇 LINE 傳給家人。</p><p><strong>注意：</strong>手機若清除網站資料、使用無痕模式或更換瀏覽器，原本的本機紀錄可能消失。重要修改請先匯出備份；只是分享網站網址不會包含已修改的行程。</p></div>
+          </div>
+        </div>
+      </main>
+      <footer class="page-footer">TOKYO JOURNAL · OUR FAMILY TRIP · 2027</footer>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="手機快速導覽"><button data-view="overview" class="active"><span>⌂</span>首頁</button><button data-view="schedule"><span>▦</span>行程</button><button data-view="checklist"><span>✓</span>待辦</button><button data-view="history"><span>↺</span>紀錄</button><button data-view="settings"><span>⚙</span>設定</button></nav>
+
+  <dialog id="event-dialog" class="editor-dialog" aria-labelledby="dialog-title"><form method="dialog" id="editor-form" class="editor-form" novalidate><div class="dialog-top"><div><p class="eyebrow muted">EDIT YOUR JOURNEY</p><h2 id="dialog-title">編輯行程</h2></div><button class="close-dialog" type="button" id="close-editor" aria-label="關閉">×</button></div>
+    <div class="fields-grid"><label class="field full">行程名稱 <input name="title" maxlength="90" required placeholder="例如：逛東京車站"></label><label class="field full">地點 <input name="location" maxlength="140" placeholder="例如：東京車站"></label><label class="field">日期 <select name="date" required></select></label><label class="field">行程類別 <select name="category"><option value="shopping">購物逛街</option><option value="food">美食餐廳</option><option value="transport">交通移動</option><option value="hotel">住宿飯店</option><option value="experience">景點體驗</option></select></label><label class="field">開始時間 <input name="start" type="time" required></label><label class="field">結束時間 <input name="end" type="time"></label><label class="field full">行程說明 <textarea name="description" rows="4" maxlength="4000" placeholder="想做什麼？路線怎麼走？"></textarea></label><label class="field full">貼心提醒 <textarea name="tip" rows="3" maxlength="2500" placeholder="例如：記得訂位、只收現金…"></textarea></label><label class="field full">地圖搜尋名稱 <input name="mapsQuery" maxlength="180" placeholder="留白會以地點名稱搜尋"></label><label class="field full">預約狀態 <select name="status"><option value="planned">一般行程</option><option value="reserved">已預約</option><option value="check">待確認／待預約</option></select></label></div>
+    <div class="editor-actions"><button type="button" class="button danger" id="delete-event">刪除行程</button><div class="editor-actions-right"><button type="button" class="button secondary" id="cancel-editor">取消</button><button type="submit" class="button primary">儲存更動</button></div></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="print-all" aria-hidden="true"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
